@@ -15,7 +15,6 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
-#include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -30,12 +29,15 @@ public:
     QAction *action_4;
     QAction *action_5;
     QAction *action_6;
+    QAction *action;
+    QAction *action_3;
+    QAction *action_7;
     QWidget *centralwidget;
     QVBoxLayout *verticalLayout;
     CustomGraphicsView *graphicsView;
-    QPushButton *pushButton;
     QMenuBar *menubar;
     QMenu *menu;
+    QMenu *menu_2;
     QStatusBar *statusbar;
 
     void setupUi(QMainWindow *MainWindow)
@@ -51,6 +53,12 @@ public:
         action_5->setObjectName("action_5");
         action_6 = new QAction(MainWindow);
         action_6->setObjectName("action_6");
+        action = new QAction(MainWindow);
+        action->setObjectName("action");
+        action_3 = new QAction(MainWindow);
+        action_3->setObjectName("action_3");
+        action_7 = new QAction(MainWindow);
+        action_7->setObjectName("action_7");
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
         verticalLayout = new QVBoxLayout(centralwidget);
@@ -60,27 +68,28 @@ public:
 
         verticalLayout->addWidget(graphicsView);
 
-        pushButton = new QPushButton(centralwidget);
-        pushButton->setObjectName("pushButton");
-
-        verticalLayout->addWidget(pushButton);
-
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
         menubar->setGeometry(QRect(0, 0, 800, 25));
         menu = new QMenu(menubar);
         menu->setObjectName("menu");
+        menu_2 = new QMenu(menubar);
+        menu_2->setObjectName("menu_2");
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName("statusbar");
         MainWindow->setStatusBar(statusbar);
 
+        menubar->addAction(menu_2->menuAction());
         menubar->addAction(menu->menuAction());
+        menu->addAction(action_7);
         menu->addAction(action_2);
         menu->addAction(action_4);
         menu->addAction(action_5);
         menu->addAction(action_6);
+        menu_2->addAction(action);
+        menu_2->addAction(action_3);
 
         retranslateUi(MainWindow);
 
@@ -94,8 +103,11 @@ public:
         action_4->setText(QCoreApplication::translate("MainWindow", "\320\236\320\272\321\200\321\203\320\266\320\275\320\276\321\201\321\202\321\214", nullptr));
         action_5->setText(QCoreApplication::translate("MainWindow", "\320\237\321\200\321\217\320\274\320\260\321\217", nullptr));
         action_6->setText(QCoreApplication::translate("MainWindow", "\320\242\320\276\321\207\320\272\320\260", nullptr));
-        pushButton->setText(QCoreApplication::translate("MainWindow", "\320\237\321\200\321\217\320\274\320\276\321\203\320\263\320\276\320\273\321\214\320\275\320\270\320\272", nullptr));
+        action->setText(QCoreApplication::translate("MainWindow", "\320\241\320\276\321\205\321\200\320\260\320\275\320\270\321\202\321\214 ", nullptr));
+        action_3->setText(QCoreApplication::translate("MainWindow", "\320\241\320\276\321\205\321\200\320\260\320\275\320\270\321\202\321\214 \320\272\320\260\320\272", nullptr));
+        action_7->setText(QCoreApplication::translate("MainWindow", "\320\240\321\203\321\207\320\272\320\260", nullptr));
         menu->setTitle(QCoreApplication::translate("MainWindow", "\320\244\320\270\320\263\321\203\321\200\321\213", nullptr));
+        menu_2->setTitle(QCoreApplication::translate("MainWindow", "\320\244\320\260\320\271\320\273", nullptr));
     } // retranslateUi
 
 };

@@ -38,12 +38,12 @@ struct qt_meta_tag_ZN10MainWindowE_t {};
 #ifdef QT_MOC_HAS_STRINGDATA
 static constexpr auto qt_meta_stringdata_ZN10MainWindowE = QtMocHelpers::stringData(
     "MainWindow",
-    "on_pushButton_clicked",
-    "",
     "on_action_2_triggered",
+    "",
     "on_action_4_triggered",
     "on_action_5_triggered",
-    "on_action_6_triggered"
+    "on_action_6_triggered",
+    "on_action_7_triggered"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -88,8 +88,6 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
     qt_incomplete_metaTypeArray<qt_meta_tag_ZN10MainWindowE_t,
         // Q_OBJECT / Q_GADGET
         QtPrivate::TypeAndForceComplete<MainWindow, std::true_type>,
-        // method 'on_pushButton_clicked'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_action_2_triggered'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_action_4_triggered'
@@ -97,6 +95,8 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         // method 'on_action_5_triggered'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_action_6_triggered'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_action_7_triggered'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
@@ -107,11 +107,11 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
     auto *_t = static_cast<MainWindow *>(_o);
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
-        case 0: _t->on_pushButton_clicked(); break;
-        case 1: _t->on_action_2_triggered(); break;
-        case 2: _t->on_action_4_triggered(); break;
-        case 3: _t->on_action_5_triggered(); break;
-        case 4: _t->on_action_6_triggered(); break;
+        case 0: _t->on_action_2_triggered(); break;
+        case 1: _t->on_action_4_triggered(); break;
+        case 2: _t->on_action_5_triggered(); break;
+        case 3: _t->on_action_6_triggered(); break;
+        case 4: _t->on_action_7_triggered(); break;
         default: ;
         }
     }

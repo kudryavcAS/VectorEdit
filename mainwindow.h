@@ -16,7 +16,7 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButton_clicked();
+
     void on_action_2_triggered();
 
     void on_action_4_triggered();
@@ -24,6 +24,8 @@ private slots:
     void on_action_5_triggered();
 
     void on_action_6_triggered();
+
+    void on_action_7_triggered();
 
 protected:
     void showEvent(QShowEvent *event) override;

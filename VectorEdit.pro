@@ -11,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     circle.cpp \
     customgraphicsview.cpp \
+    freehand.cpp \
     main.cpp \
     mainwindow.cpp \
     point.cpp \
@@ -20,6 +21,7 @@ SOURCES += \
 HEADERS += \
     circle.h \
     customgraphicsview.h \
+    freehand.h \
     mainwindow.h \
     point.h \
     rect.h \

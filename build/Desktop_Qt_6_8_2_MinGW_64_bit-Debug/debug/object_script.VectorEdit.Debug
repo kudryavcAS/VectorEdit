@@ -1,0 +1,10 @@
+debug/circle.o
+debug/customgraphicsview.o
+debug/freehand.o
+debug/main.o
+debug/mainwindow.o
+debug/point.o
+debug/rect.o
+debug/straight.o
+debug/moc_customgraphicsview.o
+debug/moc_mainwindow.o

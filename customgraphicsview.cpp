@@ -8,6 +8,7 @@
 #include "rect.h"
 #include "circle.h"
 #include "straight.h"
+#include "freehand.h"
 #include "point.h"
 
 CustomGraphicsView::CustomGraphicsView(QWidget *parent)
@@ -57,15 +58,20 @@ void CustomGraphicsView::mousePressEvent(QMouseEvent *event)
             break;
         case ShapeType::Point:
             currentItem = new Point(startPoint);
-            scene()->addItem(currentItem); // сразу добавляем точку
-            drawing = false;
-            setCursor(Qt::ArrowCursor);
+            scene()->addItem(currentItem);
+            //drawing = false;
+            //setCursor(Qt::ArrowCursor);
             return;
+        case ShapeType::Freehand:
+            currentItem = new Freehand();
+            scene()->addItem(currentItem);
+            static_cast<Freehand*>(currentItem)->addPoint(startPoint);
+            break;
         default:
             break;
         }
 
-        if (currentItem)
+        if (currentItem && currentShape != ShapeType::Freehand && currentShape != ShapeType::Point)
             scene()->addItem(currentItem);
     }
 
@@ -97,7 +103,11 @@ void CustomGraphicsView::mouseMoveEvent(QMouseEvent *event)
         if (auto lineItem = dynamic_cast<Straight*>(currentItem))
             lineItem->setLine(QLineF(startPoint, endPoint));
         break;
-
+    case ShapeType::Freehand:
+        if (auto freehandItem = dynamic_cast<Freehand*>(currentItem)) {
+            freehandItem->addPoint(endPoint);
+        }
+        break;
     default:
         break;
     }
@@ -113,8 +123,8 @@ void CustomGraphicsView::mouseReleaseEvent(QMouseEvent *event)
         return;
     }
 
-    drawing = false;
-    setCursor(Qt::ArrowCursor);
+    //drawing = false;
+    //setCursor(Qt::ArrowCursor);
     currentItem = nullptr;
 
     QGraphicsView::mouseReleaseEvent(event);

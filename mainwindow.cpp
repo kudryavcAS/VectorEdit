@@ -18,11 +18,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_pushButton_clicked()
-{
-    auto *customView = static_cast<CustomGraphicsView*>(ui->graphicsView);
-    customView->setDrawingEnabled(true);
-}
 
 void MainWindow::showEvent(QShowEvent *event)
 {
@@ -69,3 +64,10 @@ void MainWindow::on_action_6_triggered()
     customView->setDrawingEnabled(true);
 }
 
+
+void MainWindow::on_action_7_triggered()
+{
+    auto *view = static_cast<CustomGraphicsView*>(ui->graphicsView);
+    view->setShapeType(CustomGraphicsView::ShapeType::Freehand);
+    view->setDrawingEnabled(true);
+}

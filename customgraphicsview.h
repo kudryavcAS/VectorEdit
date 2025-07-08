@@ -19,7 +19,8 @@ public:
         Rectangle,
         Circle,
         Straight,
-        Point
+        Point,
+        Freehand
     };
 
     void setDrawingEnabled(bool enabled);
