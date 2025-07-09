@@ -22,7 +22,7 @@ CustomGraphicsView::CustomGraphicsView(QWidget *parent)
     setResizeAnchor(QGraphicsView::NoAnchor);
     setAlignment(Qt::AlignLeft | Qt::AlignTop);
     setSceneRect(0, 0, viewport()->width(), viewport()->height());
-    QBrush currentBrush = Qt::NoBrush;
+    //QBrush currentBrush = Qt::NoBrush;
 
     setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
     setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);

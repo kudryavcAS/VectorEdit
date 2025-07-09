@@ -9,6 +9,13 @@
     #include <QGraphicsItem>
     #include <QStack>
 
+enum class ShapeId {
+    Rect = 0,
+    Circle = 1,
+    Point = 2,
+    Straight = 3,
+    Freehand = 4,
+};
 
 
 

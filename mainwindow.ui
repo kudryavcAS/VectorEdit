@@ -46,6 +46,7 @@
     <addaction name="action"/>
     <addaction name="action_3"/>
     <addaction name="action_8"/>
+    <addaction name="action_11"/>
    </widget>
    <widget class="QMenu" name="menu_3">
     <property name="title">
@@ -96,7 +97,7 @@
   </action>
   <action name="action_8">
    <property name="text">
-    <string>Отмена действия</string>
+    <string>Отменить</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Z</string>
@@ -113,6 +114,11 @@
   <action name="action_10">
    <property name="text">
     <string>Отмена заливки</string>
+   </property>
+  </action>
+  <action name="action_11">
+   <property name="text">
+    <string>Открыть</string>
    </property>
   </action>
  </widget>

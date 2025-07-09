@@ -33,11 +33,17 @@ private slots:
 
     void on_action_10_triggered();
 
+    void on_action_3_triggered();
+
+    void on_action_11_triggered();
+
 protected:
   //  void showEvent(QShowEvent *event) override;
 
 private:
     Ui::MainWindow *ui;
+    //void openFromFile();
+    void saveToFile(const QString &filePath);
 };
 
 #endif // MAINWINDOW_H

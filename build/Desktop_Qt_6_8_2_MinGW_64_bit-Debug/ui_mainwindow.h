@@ -35,6 +35,7 @@ public:
     QAction *action_8;
     QAction *action_9;
     QAction *action_10;
+    QAction *action_11;
     QWidget *centralwidget;
     QHBoxLayout *horizontalLayout;
     CustomGraphicsView *graphicsView;
@@ -69,6 +70,8 @@ public:
         action_9->setObjectName("action_9");
         action_10 = new QAction(MainWindow);
         action_10->setObjectName("action_10");
+        action_11 = new QAction(MainWindow);
+        action_11->setObjectName("action_11");
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
         horizontalLayout = new QHBoxLayout(centralwidget);
@@ -104,6 +107,7 @@ public:
         menu_2->addAction(action);
         menu_2->addAction(action_3);
         menu_2->addAction(action_8);
+        menu_2->addAction(action_11);
         menu_3->addAction(action_9);
         menu_3->addAction(action_10);
 
@@ -122,7 +126,7 @@ public:
         action->setText(QCoreApplication::translate("MainWindow", "\320\241\320\276\321\205\321\200\320\260\320\275\320\270\321\202\321\214 ", nullptr));
         action_3->setText(QCoreApplication::translate("MainWindow", "\320\241\320\276\321\205\321\200\320\260\320\275\320\270\321\202\321\214 \320\272\320\260\320\272", nullptr));
         action_7->setText(QCoreApplication::translate("MainWindow", "\320\240\321\203\321\207\320\272\320\260", nullptr));
-        action_8->setText(QCoreApplication::translate("MainWindow", "\320\236\321\202\320\274\320\265\320\275\320\260 \320\264\320\265\320\271\321\201\321\202\320\262\320\270\321\217", nullptr));
+        action_8->setText(QCoreApplication::translate("MainWindow", "\320\236\321\202\320\274\320\265\320\275\320\270\321\202\321\214", nullptr));
 #if QT_CONFIG(shortcut)
         action_8->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+Z", nullptr));
 #endif // QT_CONFIG(shortcut)
@@ -131,6 +135,7 @@ public:
         action_9->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+F", nullptr));
 #endif // QT_CONFIG(shortcut)
         action_10->setText(QCoreApplication::translate("MainWindow", "\320\236\321\202\320\274\320\265\320\275\320\260 \320\267\320\260\320\273\320\270\320\262\320\272\320\270", nullptr));
+        action_11->setText(QCoreApplication::translate("MainWindow", "\320\236\321\202\320\272\321\200\321\213\321\202\321\214", nullptr));
         menu->setTitle(QCoreApplication::translate("MainWindow", "\320\244\320\270\320\263\321\203\321\200\321\213", nullptr));
         menu_2->setTitle(QCoreApplication::translate("MainWindow", "\320\244\320\260\320\271\320\273", nullptr));
         menu_3->setTitle(QCoreApplication::translate("MainWindow", "\320\230\320\275\321\201\321\202\321\200\321\203\320\274\320\265\320\275\321\202\321\213", nullptr));
