@@ -5,7 +5,7 @@ Freehand::Freehand(QGraphicsItem *parent)
     : QGraphicsPathItem(parent)
 {
     QPen pen(Qt::red);
-    pen.setWidth(44);
+    pen.setWidth(3);
     pen.setCapStyle(Qt::RoundCap);
     pen.setJoinStyle(Qt::RoundJoin);
     pen.setStyle(Qt::SolidLine);
@@ -33,7 +33,11 @@ void Freehand::addPoint(const QPointF &point)
 // Теперь boundingRect() всегда «знает» про весь путь + толщину пера
 QRectF Freehand::boundingRect() const
 {
+    if (path().isEmpty())
+        return QRectF();
+
     QRectF r = path().boundingRect();
     qreal w = pen().widthF();
     return r.adjusted(-w, -w, w, w);
 }
+

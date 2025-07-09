@@ -22,7 +22,7 @@ CustomGraphicsView::CustomGraphicsView(QWidget *parent)
     setResizeAnchor(QGraphicsView::NoAnchor);
     setAlignment(Qt::AlignLeft | Qt::AlignTop);
     setSceneRect(0, 0, viewport()->width(), viewport()->height());
-
+    QBrush currentBrush = Qt::NoBrush;
 
     setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
     setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
@@ -34,6 +34,11 @@ void CustomGraphicsView::resizeEvent(QResizeEvent *event)
     QGraphicsView::resizeEvent(event);
     if (scene())
         scene()->setSceneRect(this->rect());
+}
+
+void CustomGraphicsView::setFillColor(const QColor &color)
+{
+    currentBrush = QBrush(color);
 }
 
 void CustomGraphicsView::setDrawingEnabled(bool enabled)
@@ -66,23 +71,27 @@ void CustomGraphicsView::mousePressEvent(QMouseEvent *event)
         case ShapeType::Point:
             currentItem = new Point(startPoint);
             scene()->addItem(currentItem);
+            undoStack.push(currentItem);
             return;
         case ShapeType::Freehand:
-        {
+        //{
             currentItem = new Freehand();
+          //scene(  )->addItem(currentItem);
             scene()->addItem(currentItem);
-            scene()->addItem(currentItem);
+            undoStack.push(currentItem);
             dynamic_cast<Freehand*>(currentItem)->addPoint(startPoint);
             return;// Только один вызов
-        }
-        break;
+        //}
+        //break;
         default:
             break;
         }
 
         // Добавляем только если не добавляли раньше
-        if (currentItem && currentShape != ShapeType::Freehand && currentShape != ShapeType::Point)
+        if (currentItem && currentShape != ShapeType::Freehand && currentShape != ShapeType::Point){
             scene()->addItem(currentItem);
+            undoStack.push(currentItem);
+        }
     }
 
     QGraphicsView::mousePressEvent(event);
@@ -125,6 +134,14 @@ void CustomGraphicsView::mouseMoveEvent(QMouseEvent *event)
 
     viewport()->update();
     QGraphicsView::mouseMoveEvent(event);
+}
+void CustomGraphicsView::undo()
+{
+    if (!undoStack.isEmpty()) {
+        QGraphicsItem* lastItem = undoStack.pop();
+        scene()->removeItem(lastItem);
+        delete lastItem; // чтобы избежать утечки памяти
+    }
 }
 
 void CustomGraphicsView::mouseReleaseEvent(QMouseEvent *event)

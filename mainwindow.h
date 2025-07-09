@@ -27,8 +27,14 @@ private slots:
 
     void on_action_7_triggered();
 
+    void on_action_8_triggered();
+
+    void on_action_9_triggered();
+
+    void on_action_10_triggered();
+
 protected:
-    void showEvent(QShowEvent *event) override;
+  //  void showEvent(QShowEvent *event) override;
 
 private:
     Ui::MainWindow *ui;

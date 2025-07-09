@@ -12,6 +12,7 @@
 #include <QtCore/QVariant>
 #include <QtGui/QAction>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
@@ -31,11 +32,16 @@ public:
     QAction *action;
     QAction *action_3;
     QAction *action_7;
+    QAction *action_8;
+    QAction *action_9;
+    QAction *action_10;
     QWidget *centralwidget;
+    QHBoxLayout *horizontalLayout;
     CustomGraphicsView *graphicsView;
     QMenuBar *menubar;
     QMenu *menu;
     QMenu *menu_2;
+    QMenu *menu_3;
     QStatusBar *statusbar;
 
     void setupUi(QMainWindow *MainWindow)
@@ -57,11 +63,21 @@ public:
         action_3->setObjectName("action_3");
         action_7 = new QAction(MainWindow);
         action_7->setObjectName("action_7");
+        action_8 = new QAction(MainWindow);
+        action_8->setObjectName("action_8");
+        action_9 = new QAction(MainWindow);
+        action_9->setObjectName("action_9");
+        action_10 = new QAction(MainWindow);
+        action_10->setObjectName("action_10");
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
+        horizontalLayout = new QHBoxLayout(centralwidget);
+        horizontalLayout->setObjectName("horizontalLayout");
         graphicsView = new CustomGraphicsView(centralwidget);
         graphicsView->setObjectName("graphicsView");
-        graphicsView->setGeometry(QRect(180, 60, 256, 192));
+
+        horizontalLayout->addWidget(graphicsView);
+
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
@@ -70,6 +86,8 @@ public:
         menu->setObjectName("menu");
         menu_2 = new QMenu(menubar);
         menu_2->setObjectName("menu_2");
+        menu_3 = new QMenu(menubar);
+        menu_3->setObjectName("menu_3");
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName("statusbar");
@@ -77,6 +95,7 @@ public:
 
         menubar->addAction(menu_2->menuAction());
         menubar->addAction(menu->menuAction());
+        menubar->addAction(menu_3->menuAction());
         menu->addAction(action_7);
         menu->addAction(action_2);
         menu->addAction(action_4);
@@ -84,6 +103,9 @@ public:
         menu->addAction(action_6);
         menu_2->addAction(action);
         menu_2->addAction(action_3);
+        menu_2->addAction(action_8);
+        menu_3->addAction(action_9);
+        menu_3->addAction(action_10);
 
         retranslateUi(MainWindow);
 
@@ -100,8 +122,18 @@ public:
         action->setText(QCoreApplication::translate("MainWindow", "\320\241\320\276\321\205\321\200\320\260\320\275\320\270\321\202\321\214 ", nullptr));
         action_3->setText(QCoreApplication::translate("MainWindow", "\320\241\320\276\321\205\321\200\320\260\320\275\320\270\321\202\321\214 \320\272\320\260\320\272", nullptr));
         action_7->setText(QCoreApplication::translate("MainWindow", "\320\240\321\203\321\207\320\272\320\260", nullptr));
+        action_8->setText(QCoreApplication::translate("MainWindow", "\320\236\321\202\320\274\320\265\320\275\320\260 \320\264\320\265\320\271\321\201\321\202\320\262\320\270\321\217", nullptr));
+#if QT_CONFIG(shortcut)
+        action_8->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+Z", nullptr));
+#endif // QT_CONFIG(shortcut)
+        action_9->setText(QCoreApplication::translate("MainWindow", "\320\227\320\260\320\273\320\270\320\262\320\272\320\260", nullptr));
+#if QT_CONFIG(shortcut)
+        action_9->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+F", nullptr));
+#endif // QT_CONFIG(shortcut)
+        action_10->setText(QCoreApplication::translate("MainWindow", "\320\236\321\202\320\274\320\265\320\275\320\260 \320\267\320\260\320\273\320\270\320\262\320\272\320\270", nullptr));
         menu->setTitle(QCoreApplication::translate("MainWindow", "\320\244\320\270\320\263\321\203\321\200\321\213", nullptr));
         menu_2->setTitle(QCoreApplication::translate("MainWindow", "\320\244\320\260\320\271\320\273", nullptr));
+        menu_3->setTitle(QCoreApplication::translate("MainWindow", "\320\230\320\275\321\201\321\202\321\200\321\203\320\274\320\265\320\275\321\202\321\213", nullptr));
     } // retranslateUi
 
 };

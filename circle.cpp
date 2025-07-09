@@ -6,7 +6,7 @@ Circle::Circle(const QRectF& rect, QGraphicsItem* parent)
     : QGraphicsEllipseItem(rect, parent)
 {
     setPen(QPen(Qt::green, 2));
-    setBrush(QBrush(Qt::yellow, Qt::SolidPattern));
+    setBrush(Qt::NoBrush);
 }
 
 void Circle::serialize(QDataStream& stream) const
