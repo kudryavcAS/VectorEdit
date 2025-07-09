@@ -46,6 +46,8 @@ private slots:
 
     void on_action_14_triggered();
 
+    void on_action_15_triggered();
+
 protected:
   //  void showEvent(QShowEvent *event) override;
 
@@ -53,8 +55,10 @@ private:
     Ui::MainWindow *ui;
     //void openFromFile();
     void saveToFile(const QString &filePath);
+    void changeSelectedItemsBorderColor(const QColor& color);
     QString currentFilePath;
     QGraphicsItem* clipboardItem = nullptr;
+
 };
 
 #endif // MAINWINDOW_H

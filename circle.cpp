@@ -25,3 +25,9 @@ void Circle::deserialize(QDataStream& stream)
     setPen(pen);
     setBrush(brush);
 }
+
+void Circle::setBorderColor(const QColor& color) {
+    QPen p = this->pen();
+    p.setColor(color);
+    this->setPen(p);
+}

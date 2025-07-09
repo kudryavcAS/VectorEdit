@@ -39,6 +39,7 @@ public:
     QAction *action_12;
     QAction *action_13;
     QAction *action_14;
+    QAction *action_15;
     QWidget *centralwidget;
     QHBoxLayout *horizontalLayout;
     CustomGraphicsView *graphicsView;
@@ -81,6 +82,8 @@ public:
         action_13->setObjectName("action_13");
         action_14 = new QAction(MainWindow);
         action_14->setObjectName("action_14");
+        action_15 = new QAction(MainWindow);
+        action_15->setObjectName("action_15");
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
         horizontalLayout = new QHBoxLayout(centralwidget);
@@ -108,20 +111,20 @@ public:
         menubar->addAction(menu_2->menuAction());
         menubar->addAction(menu->menuAction());
         menubar->addAction(menu_3->menuAction());
-        menu->addAction(action_7);
+        menu->addAction(action_14);
         menu->addAction(action_2);
         menu->addAction(action_4);
         menu->addAction(action_5);
         menu->addAction(action_6);
-        menu->addAction(action_14);
         menu_2->addAction(action);
         menu_2->addAction(action_3);
         menu_2->addAction(action_8);
         menu_2->addAction(action_11);
-        menu_3->addAction(action_9);
-        menu_3->addAction(action_10);
         menu_3->addAction(action_12);
         menu_3->addAction(action_13);
+        menu_3->addAction(action_9);
+        menu_3->addAction(action_10);
+        menu_3->addAction(action_15);
 
         retranslateUi(MainWindow);
 
@@ -163,6 +166,10 @@ public:
         action_13->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+V", nullptr));
 #endif // QT_CONFIG(shortcut)
         action_14->setText(QCoreApplication::translate("MainWindow", "\320\232\321\203\321\200\321\201\320\276\321\200", nullptr));
+        action_15->setText(QCoreApplication::translate("MainWindow", "\320\246\320\262\320\265\321\202 \320\263\321\200\320\260\320\275\320\270\321\206\321\213", nullptr));
+#if QT_CONFIG(shortcut)
+        action_15->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+B", nullptr));
+#endif // QT_CONFIG(shortcut)
         menu->setTitle(QCoreApplication::translate("MainWindow", "\320\244\320\270\320\263\321\203\321\200\321\213", nullptr));
         menu_2->setTitle(QCoreApplication::translate("MainWindow", "\320\244\320\260\320\271\320\273", nullptr));
         menu_3->setTitle(QCoreApplication::translate("MainWindow", "\320\230\320\275\321\201\321\202\321\200\321\203\320\274\320\265\320\275\321\202\321\213", nullptr));

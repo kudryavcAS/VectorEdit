@@ -33,12 +33,11 @@
     <property name="title">
      <string>Фигуры</string>
     </property>
-    <addaction name="action_7"/>
+    <addaction name="action_14"/>
     <addaction name="action_2"/>
     <addaction name="action_4"/>
     <addaction name="action_5"/>
     <addaction name="action_6"/>
-    <addaction name="action_14"/>
    </widget>
    <widget class="QMenu" name="menu_2">
     <property name="title">
@@ -53,10 +52,11 @@
     <property name="title">
      <string>Инструменты</string>
     </property>
-    <addaction name="action_9"/>
-    <addaction name="action_10"/>
     <addaction name="action_12"/>
     <addaction name="action_13"/>
+    <addaction name="action_9"/>
+    <addaction name="action_10"/>
+    <addaction name="action_15"/>
    </widget>
    <addaction name="menu_2"/>
    <addaction name="menu"/>
@@ -149,6 +149,14 @@
   <action name="action_14">
    <property name="text">
     <string>Курсор</string>
+   </property>
+  </action>
+  <action name="action_15">
+   <property name="text">
+    <string>Цвет границы</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+B</string>
    </property>
   </action>
  </widget>

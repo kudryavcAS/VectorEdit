@@ -25,3 +25,10 @@ void Point::deserialize(QDataStream& stream)
     setPen(pen);
     setBrush(brush);
 }
+
+void Point::setBorderColor(const QColor& color)
+{
+    QPen p = pen();
+    p.setColor(color);
+    setPen(p);
+}

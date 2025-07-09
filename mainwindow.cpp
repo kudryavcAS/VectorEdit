@@ -104,6 +104,7 @@ void MainWindow::on_action_10_triggered()
         }
     }
 }
+
 void MainWindow::saveToFile(const QString &filePath)
 {
     currentFilePath = filePath;  // <-- сохраняем путь
@@ -135,7 +136,7 @@ void MainWindow::saveToFile(const QString &filePath)
             straight->serialize(out);
         } else if (auto freehand = dynamic_cast<Freehand*>(item)) {
             out << static_cast<qint32>(ShapeId::Freehand);
-            out << freehand->path() << freehand->pen();
+           freehand->serialize(out);
         }
     }
 }
@@ -215,9 +216,9 @@ void MainWindow::on_action_11_triggered()
         }
         case ShapeId::Freehand: {
             auto* freehand = new Freehand();
-            // Реализуй метод deserialize(), если его нет
-            // freehand->deserialize(in);
+            freehand->deserialize(in);
             item = freehand;
+
             break;
         }
         default:
@@ -338,7 +339,7 @@ void MainWindow::on_action_13_triggered()
         //  Центр новой фигуры
         QPointF center = newItem->sceneBoundingRect().center();
 
-        // Смещаем фигуру так, чтобы она оказалась под мышкой
+        //  Смещаем фигуру так, чтобы она оказалась под мышкой
         QPointF offset = mouseScenePos - center;
         newItem->moveBy(offset.x(), offset.y());
 
@@ -349,11 +350,33 @@ void MainWindow::on_action_13_triggered()
     }
 }
 
-
 void MainWindow::on_action_14_triggered()
 {
     auto *view = static_cast<CustomGraphicsView*>(ui->graphicsView);
     view->setShapeType(CustomGraphicsView::ShapeType::Selection);
     view->setDrawingEnabled(false);  // отключаем рисование
+}
+
+void MainWindow::changeSelectedItemsBorderColor(const QColor& color) {
+    for (QGraphicsItem* item : ui->graphicsView->scene()->selectedItems()) {
+        if (auto rect = qgraphicsitem_cast<Rect*>(item)) {
+            rect->setBorderColor(color);
+        } else if (auto circle = qgraphicsitem_cast<Circle*>(item)) {
+            circle->setBorderColor(color);
+        } else if (auto line = qgraphicsitem_cast<Straight*>(item)) {
+            line->setBorderColor(color);
+        } else if (auto point = qgraphicsitem_cast<Point*>(item)) {
+            point->setBorderColor(color);  // ⬅️ Теперь это работает
+        }
+    }
+}
+
+
+void MainWindow::on_action_15_triggered()
+{
+    QColor color = QColorDialog::getColor(Qt::black, this, "Выберите цвет границы");
+    if (color.isValid()) {
+        changeSelectedItemsBorderColor(color);
+    }
 }
 

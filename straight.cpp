@@ -21,3 +21,9 @@ void Straight::deserialize(QDataStream& stream)
     setLine(line);
     setPen(pen);
 }
+
+void Straight::setBorderColor(const QColor& color) {
+    QPen p = this->pen();
+    p.setColor(color);
+    this->setPen(p);
+}

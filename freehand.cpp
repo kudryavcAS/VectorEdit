@@ -1,4 +1,5 @@
 #include "freehand.h"
+#include <QPainterPath>
 #include <QPen>
 
 Freehand::Freehand(QGraphicsItem *parent)
@@ -16,21 +17,18 @@ Freehand::Freehand(QGraphicsItem *parent)
 
 void Freehand::addPoint(const QPointF &point)
 {
-    qDebug() << "ddd";
-    // Сообщаем Qt, что boundingRect() вот‑вот изменится
     prepareGeometryChange();
 
-    // Добавляем к уже имеющемуся пути
     QPainterPath p = path();
     if (p.isEmpty())
         p.moveTo(point);
     else
         p.lineTo(point);
+
     setPath(p);
     update(boundingRect());
 }
 
-// Теперь boundingRect() всегда «знает» про весь путь + толщину пера
 QRectF Freehand::boundingRect() const
 {
     if (path().isEmpty())
@@ -39,5 +37,19 @@ QRectF Freehand::boundingRect() const
     QRectF r = path().boundingRect();
     qreal w = pen().widthF();
     return r.adjusted(-w, -w, w, w);
+}
+
+void Freehand::serialize(QDataStream &stream) const
+{
+    stream << path() << pen();
+}
+
+void Freehand::deserialize(QDataStream &stream)
+{
+    QPainterPath loadedPath;
+    QPen loadedPen;
+    stream >> loadedPath >> loadedPen;
+    setPath(loadedPath);
+    setPen(loadedPen);
 }
 
