@@ -7,6 +7,7 @@ Circle::Circle(const QRectF& rect, QGraphicsItem* parent)
 {
     setPen(QPen(Qt::green, 2));
     setBrush(Qt::NoBrush);
+    setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsMovable);
 }
 
 void Circle::serialize(QDataStream& stream) const

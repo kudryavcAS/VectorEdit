@@ -50,10 +50,21 @@ void CustomGraphicsView::setDrawingEnabled(bool enabled)
 void CustomGraphicsView::setShapeType(ShapeType shape)
 {
     currentShape = shape;
+    if (currentShape == ShapeType::Selection) {
+        setDragMode(QGraphicsView::RubberBandDrag);  // включить выделение рамкой
+        setInteractive(true);  // мышь взаимодействует с элементами
+    } else {
+        setDragMode(QGraphicsView::NoDrag);  // запрет рамочного выделения
+        setInteractive(false);  // отключаем взаимодействие мыши с элементами
+    }
 }
 
 void CustomGraphicsView::mousePressEvent(QMouseEvent *event)
 {
+    if (!drawing || currentShape == ShapeType::Selection) {
+        QGraphicsView::mousePressEvent(event); // передаём стандартное поведение
+        return;
+    }
     if (drawing && event->button() == Qt::LeftButton && currentShape != ShapeType::None)
     {
         startPoint = mapToScene(event->pos());
@@ -135,6 +146,7 @@ void CustomGraphicsView::mouseMoveEvent(QMouseEvent *event)
     viewport()->update();
     QGraphicsView::mouseMoveEvent(event);
 }
+
 void CustomGraphicsView::undo()
 {
     if (!undoStack.isEmpty()) {

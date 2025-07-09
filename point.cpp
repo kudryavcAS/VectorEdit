@@ -7,6 +7,7 @@ Point::Point(const QPointF& center, qreal radius, QGraphicsItem* parent)
 {
     setPen(QPen(Qt::black));
     setBrush(QBrush(Qt::black));
+    setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsMovable);
 }
 
 void Point::serialize(QDataStream& stream) const

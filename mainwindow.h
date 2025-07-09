@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QGraphicsItem>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -37,6 +38,14 @@ private slots:
 
     void on_action_11_triggered();
 
+    void on_action_triggered();
+
+    void on_action_12_triggered();
+
+    void on_action_13_triggered();
+
+    void on_action_14_triggered();
+
 protected:
   //  void showEvent(QShowEvent *event) override;
 
@@ -44,6 +53,8 @@ private:
     Ui::MainWindow *ui;
     //void openFromFile();
     void saveToFile(const QString &filePath);
+    QString currentFilePath;
+    QGraphicsItem* clipboardItem = nullptr;
 };
 
 #endif // MAINWINDOW_H

@@ -32,7 +32,8 @@ enum class ShapeId {
             Circle,
             Straight,
             Point,
-            Freehand
+            Freehand,
+            Selection
         };
 
         void setDrawingEnabled(bool enabled);

@@ -7,6 +7,7 @@ Rect::Rect(const QRectF& rect, QGraphicsItem* parent)
 {
     setPen(QPen(Qt::red, 2));
     setBrush(Qt::NoBrush);
+    setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsMovable);
 }
 
 void Rect::serialize(QDataStream& stream) const

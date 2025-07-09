@@ -6,6 +6,7 @@
 #include <QGraphicsItem>
 #include <QFile>
 #include <QFileDialog>
+#include <QBuffer>
 
 #include "rect.h"
 #include "circle.h"
@@ -79,15 +80,11 @@ void MainWindow::on_action_9_triggered()
     auto *view = static_cast<CustomGraphicsView*>(ui->graphicsView);
     auto *scene = view->scene();
 
-    if (scene->items().isEmpty())
-        return;
+    QList<QGraphicsItem*> selectedItems = scene->selectedItems();
 
-    // В Qt последняя добавленная фигура — первая в списке
-    for (QGraphicsItem* item : scene->items()) {
+    for (QGraphicsItem* item : selectedItems) {
         if (auto shape = dynamic_cast<QAbstractGraphicsShapeItem*>(item)) {
-            // Freehand — не наследует QAbstractGraphicsShapeItem, так что тут мы автоматически его пропускаем
             shape->setBrush(QBrush(color));
-            break; // нашли первую подходящую — залили и вышли
         }
     }
 
@@ -98,21 +95,18 @@ void MainWindow::on_action_10_triggered()
     auto *view = static_cast<CustomGraphicsView*>(ui->graphicsView);
     auto *scene = view->scene();
 
-    if (scene->items().isEmpty())
+    if (scene->selectedItems().isEmpty())
         return;
 
-    // Пробегаем по всем, ищем первую залитую (последнюю добавленную с заливкой)
-    for (QGraphicsItem* item : scene->items()) {
+    for (QGraphicsItem* item : scene->selectedItems()) {
         if (auto shape = dynamic_cast<QAbstractGraphicsShapeItem*>(item)) {
-            if (shape->brush().style() != Qt::NoBrush) {
-                shape->setBrush(Qt::NoBrush);
-                break;
-            }
+            shape->setBrush(Qt::NoBrush);
         }
-    }}
-
+    }
+}
 void MainWindow::saveToFile(const QString &filePath)
 {
+    currentFilePath = filePath;  // <-- сохраняем путь
     QFile file(filePath);
     if (!file.open(QIODevice::WriteOnly)) {
         qWarning("Не удалось открыть файл для записи");
@@ -120,34 +114,28 @@ void MainWindow::saveToFile(const QString &filePath)
     }
 
     QDataStream out(&file);
-    out.setVersion(QDataStream::Qt_6_0); // или другую подходящую версию
+    out.setVersion(QDataStream::Qt_6_0);
 
     auto *scene = static_cast<CustomGraphicsView*>(ui->graphicsView)->scene();
     QList<QGraphicsItem*> items = scene->items();
-    out << static_cast<qint32>(int(items.size()));  // Кол-во элементов
+    out << static_cast<qint32>(items.size());
 
-    for (QGraphicsItem *item : scene->items()) {
-
+    for (QGraphicsItem *item : items) {
         if (auto rect = dynamic_cast<Rect*>(item)) {
             out << static_cast<qint32>(ShapeId::Rect);
             rect->serialize(out);
-
         } else if (auto circle = dynamic_cast<Circle*>(item)) {
             out << static_cast<qint32>(ShapeId::Circle);
             circle->serialize(out);
-
         } else if (auto point = dynamic_cast<Point*>(item)) {
             out << static_cast<qint32>(ShapeId::Point);
             point->serialize(out);
-
         } else if (auto straight = dynamic_cast<Straight*>(item)) {
             out << static_cast<qint32>(ShapeId::Straight);
             straight->serialize(out);
-
         } else if (auto freehand = dynamic_cast<Freehand*>(item)) {
             out << static_cast<qint32>(ShapeId::Freehand);
-            QPainterPath path = freehand->path();
-            out << path << freehand->pen(); // простейшая сериализация freehand
+            out << freehand->path() << freehand->pen();
         }
     }
 }
@@ -252,5 +240,120 @@ void MainWindow::on_action_11_triggered()
     scene->update();
     ui->graphicsView->viewport()->update();
     qDebug() << "Сцена загружена из:" << filePath;
+}
+
+void MainWindow::on_action_triggered()
+{
+    if (currentFilePath.isEmpty()) {
+        on_action_3_triggered(); // вызываем "Сохранить как..."
+    } else {
+        saveToFile(currentFilePath);
+    }
+}
+
+void MainWindow::on_action_12_triggered()
+{
+    auto *scene = ui->graphicsView->scene();
+    QList<QGraphicsItem*> selected = scene->selectedItems();
+
+    if (selected.isEmpty())
+        return;
+
+    QGraphicsItem* item = selected.first();  // копируем только один элемент пока что
+
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly);
+    QDataStream out(&buffer);
+    out.setVersion(QDataStream::Qt_6_0);
+
+    if (auto rect = dynamic_cast<Rect*>(item)) {
+        out << static_cast<qint32>(ShapeId::Rect);
+        rect->serialize(out);
+    } else if (auto circle = dynamic_cast<Circle*>(item)) {
+        out << static_cast<qint32>(ShapeId::Circle);
+        circle->serialize(out);
+    } else if (auto point = dynamic_cast<Point*>(item)) {
+        out << static_cast<qint32>(ShapeId::Point);
+        point->serialize(out);
+    } else if (auto straight = dynamic_cast<Straight*>(item)) {
+        out << static_cast<qint32>(ShapeId::Straight);
+        straight->serialize(out);
+    }
+
+    clipboardItem = new QGraphicsRectItem();  // просто для хранения данных, не используется напрямую
+    clipboardItem->setData(0, buffer.data());
+}
+
+void MainWindow::on_action_13_triggered()
+{
+    if (!clipboardItem)
+        return;
+
+    QByteArray data = clipboardItem->data(0).toByteArray();
+    QBuffer buffer(&data);
+    buffer.open(QIODevice::ReadOnly);
+    QDataStream in(&buffer);
+    in.setVersion(QDataStream::Qt_6_0);
+
+    qint32 shapeIdInt;
+    in >> shapeIdInt;
+    ShapeId shapeId = static_cast<ShapeId>(shapeIdInt);
+
+    QGraphicsItem* newItem = nullptr;
+
+    switch (shapeId) {
+    case ShapeId::Rect: {
+        auto* rect = new Rect(QRectF());
+        rect->deserialize(in);
+        newItem = rect;
+        break;
+    }
+    case ShapeId::Circle: {
+        auto* circle = new Circle(QRectF());
+        circle->deserialize(in);
+        newItem = circle;
+        break;
+    }
+    case ShapeId::Point: {
+        auto* point = new Point(QPointF());
+        point->deserialize(in);
+        newItem = point;
+        break;
+    }
+    case ShapeId::Straight: {
+        auto* line = new Straight(QLineF());
+        line->deserialize(in);
+        newItem = line;
+        break;
+    }
+    default:
+        qWarning() << "Неизвестная фигура при вставке";
+        return;
+    }
+
+    if (newItem) {
+        //  Получаем текущую позицию курсора мыши в координатах сцены
+        QPointF mouseScenePos = ui->graphicsView->mapToScene(ui->graphicsView->mapFromGlobal(QCursor::pos()));
+
+        //  Центр новой фигуры
+        QPointF center = newItem->sceneBoundingRect().center();
+
+        // Смещаем фигуру так, чтобы она оказалась под мышкой
+        QPointF offset = mouseScenePos - center;
+        newItem->moveBy(offset.x(), offset.y());
+
+        // Добавляем в сцену
+        newItem->setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsMovable);
+        ui->graphicsView->scene()->addItem(newItem);
+        newItem->setSelected(true);  // сразу выделим
+    }
+}
+
+
+void MainWindow::on_action_14_triggered()
+{
+    auto *view = static_cast<CustomGraphicsView*>(ui->graphicsView);
+    view->setShapeType(CustomGraphicsView::ShapeType::Selection);
+    view->setDrawingEnabled(false);  // отключаем рисование
 }
 
