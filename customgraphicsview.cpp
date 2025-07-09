@@ -8,7 +8,6 @@
 #include "rect.h"
 #include "circle.h"
 #include "straight.h"
-#include "freehand.h"
 #include "point.h"
 
 CustomGraphicsView::CustomGraphicsView(QWidget *parent)
@@ -84,16 +83,7 @@ void CustomGraphicsView::mousePressEvent(QMouseEvent *event)
             scene()->addItem(currentItem);
             undoStack.push(currentItem);
             return;
-        case ShapeType::Freehand:
-        //{
-            currentItem = new Freehand();
-          //scene(  )->addItem(currentItem);
-            scene()->addItem(currentItem);
-            undoStack.push(currentItem);
-            dynamic_cast<Freehand*>(currentItem)->addPoint(startPoint);
-            return;// Только один вызов
-        //}
-        //break;
+
         default:
             break;
         }
@@ -134,10 +124,6 @@ void CustomGraphicsView::mouseMoveEvent(QMouseEvent *event)
             lineItem->setLine(QLineF(startPoint, endPoint));
         break;
 
-    case ShapeType::Freehand:
-        if (auto freehandItem = dynamic_cast<Freehand*>(currentItem))
-            freehandItem->addPoint(endPoint);
-        break;
 
     default:
         break;

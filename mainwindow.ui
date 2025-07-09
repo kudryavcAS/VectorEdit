@@ -96,11 +96,6 @@
     <string>Сохранить как</string>
    </property>
   </action>
-  <action name="action_7">
-   <property name="text">
-    <string>Ручка</string>
-   </property>
-  </action>
   <action name="action_8">
    <property name="text">
     <string>Отменить</string>

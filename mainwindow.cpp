@@ -11,7 +11,6 @@
 #include "rect.h"
 #include "circle.h"
 #include "straight.h"
-#include "freehand.h"
 #include "point.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -56,13 +55,6 @@ void MainWindow::on_action_6_triggered()
     auto *customView = static_cast<CustomGraphicsView*>(ui->graphicsView);
     customView->setShapeType(CustomGraphicsView::ShapeType::Point);
     customView->setDrawingEnabled(true);
-}
-
-void MainWindow::on_action_7_triggered()
-{
-    auto *view = static_cast<CustomGraphicsView*>(ui->graphicsView);
-    view->setShapeType(CustomGraphicsView::ShapeType::Freehand);
-    view->setDrawingEnabled(true);
 }
 
 void MainWindow::on_action_8_triggered()
@@ -134,11 +126,8 @@ void MainWindow::saveToFile(const QString &filePath)
         } else if (auto straight = dynamic_cast<Straight*>(item)) {
             out << static_cast<qint32>(ShapeId::Straight);
             straight->serialize(out);
-        } else if (auto freehand = dynamic_cast<Freehand*>(item)) {
-            out << static_cast<qint32>(ShapeId::Freehand);
-           freehand->serialize(out);
-        }
-    }
+        };
+    };
 }
 
 void MainWindow::on_action_3_triggered()
@@ -214,13 +203,7 @@ void MainWindow::on_action_11_triggered()
             item = line;
             break;
         }
-        case ShapeId::Freehand: {
-            auto* freehand = new Freehand();
-            freehand->deserialize(in);
-            item = freehand;
 
-            break;
-        }
         default:
             qWarning() << "Неизвестная фигура:" << shapeIdInt;
             continue;
@@ -370,7 +353,6 @@ void MainWindow::changeSelectedItemsBorderColor(const QColor& color) {
         }
     }
 }
-
 
 void MainWindow::on_action_15_triggered()
 {

@@ -31,7 +31,6 @@ public:
     QAction *action_6;
     QAction *action;
     QAction *action_3;
-    QAction *action_7;
     QAction *action_8;
     QAction *action_9;
     QAction *action_10;
@@ -66,8 +65,6 @@ public:
         action->setObjectName("action");
         action_3 = new QAction(MainWindow);
         action_3->setObjectName("action_3");
-        action_7 = new QAction(MainWindow);
-        action_7->setObjectName("action_7");
         action_8 = new QAction(MainWindow);
         action_8->setObjectName("action_8");
         action_9 = new QAction(MainWindow);
@@ -143,7 +140,6 @@ public:
         action->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+S", nullptr));
 #endif // QT_CONFIG(shortcut)
         action_3->setText(QCoreApplication::translate("MainWindow", "\320\241\320\276\321\205\321\200\320\260\320\275\320\270\321\202\321\214 \320\272\320\260\320\272", nullptr));
-        action_7->setText(QCoreApplication::translate("MainWindow", "\320\240\321\203\321\207\320\272\320\260", nullptr));
         action_8->setText(QCoreApplication::translate("MainWindow", "\320\236\321\202\320\274\320\265\320\275\320\270\321\202\321\214", nullptr));
 #if QT_CONFIG(shortcut)
         action_8->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+Z", nullptr));
