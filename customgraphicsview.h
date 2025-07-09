@@ -5,6 +5,7 @@
 #include <QGraphicsRectItem>
 #include <QGraphicsEllipseItem>
 #include <QGraphicsLineItem>
+#include <QGraphicsPathItem>
 #include <QGraphicsItem>
 
 class CustomGraphicsView : public QGraphicsView

@@ -16,7 +16,6 @@
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QStatusBar>
-#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include "customgraphicsview.h"
 
@@ -33,7 +32,6 @@ public:
     QAction *action_3;
     QAction *action_7;
     QWidget *centralwidget;
-    QVBoxLayout *verticalLayout;
     CustomGraphicsView *graphicsView;
     QMenuBar *menubar;
     QMenu *menu;
@@ -61,13 +59,9 @@ public:
         action_7->setObjectName("action_7");
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
-        verticalLayout = new QVBoxLayout(centralwidget);
-        verticalLayout->setObjectName("verticalLayout");
         graphicsView = new CustomGraphicsView(centralwidget);
         graphicsView->setObjectName("graphicsView");
-
-        verticalLayout->addWidget(graphicsView);
-
+        graphicsView->setGeometry(QRect(180, 60, 256, 192));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
@@ -98,7 +92,7 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
+        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "\320\222\320\265\320\272\321\202\320\276\321\200\320\275\321\213\320\271 \321\200\320\265\320\264\320\260\320\272\321\202\320\276\321\200", nullptr));
         action_2->setText(QCoreApplication::translate("MainWindow", "\320\237\321\200\321\217\320\274\320\276\321\203\320\263\320\276\320\273\321\214\320\275\320\270\320\272", nullptr));
         action_4->setText(QCoreApplication::translate("MainWindow", "\320\236\320\272\321\200\321\203\320\266\320\275\320\276\321\201\321\202\321\214", nullptr));
         action_5->setText(QCoreApplication::translate("MainWindow", "\320\237\321\200\321\217\320\274\320\260\321\217", nullptr));

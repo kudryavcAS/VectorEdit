@@ -9,8 +9,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     // Установим сцену и тип кастомного view
-    auto *customView = static_cast<CustomGraphicsView*>(ui->graphicsView);
-    customView->setScene(new QGraphicsScene(this));
+   auto *customView = static_cast<CustomGraphicsView*>(ui->graphicsView);
+   customView->setScene(new QGraphicsScene(this));
 }
 
 MainWindow::~MainWindow()
