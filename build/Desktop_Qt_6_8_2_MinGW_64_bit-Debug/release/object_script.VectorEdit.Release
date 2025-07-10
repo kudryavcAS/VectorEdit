@@ -1,10 +1,11 @@
 release/circle.o
 release/customgraphicsview.o
-release/freehand.o
+release/info.o
 release/main.o
 release/mainwindow.o
 release/point.o
 release/rect.o
 release/straight.o
 release/moc_customgraphicsview.o
+release/moc_info.o
 release/moc_mainwindow.o

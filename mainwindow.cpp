@@ -12,6 +12,7 @@
 #include "circle.h"
 #include "straight.h"
 #include "point.h"
+#include "info.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -360,5 +361,14 @@ void MainWindow::on_action_15_triggered()
     if (color.isValid()) {
         changeSelectedItemsBorderColor(color);
     }
+}
+
+
+void MainWindow::on_action_7_triggered()
+{
+    class info* inf = new info();
+    inf->setAttribute(Qt::WA_DeleteOnClose);
+    inf->show();
+
 }
 

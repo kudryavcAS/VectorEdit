@@ -46,6 +46,8 @@ private slots:
 
     void on_action_15_triggered();
 
+    void on_action_7_triggered();
+
 protected:
   //  void showEvent(QShowEvent *event) override;
 

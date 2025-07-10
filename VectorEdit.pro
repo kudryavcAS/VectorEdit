@@ -11,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     circle.cpp \
     customgraphicsview.cpp \
+    info.cpp \
     main.cpp \
     mainwindow.cpp \
     point.cpp \
@@ -20,12 +21,14 @@ SOURCES += \
 HEADERS += \
     circle.h \
     customgraphicsview.h \
+    info.h \
     mainwindow.h \
     point.h \
     rect.h \
     straight.h
 
 FORMS += \
+    info.ui \
     mainwindow.ui
 
 # Default rules for deployment.
